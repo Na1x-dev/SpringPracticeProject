@@ -1,4 +1,4 @@
-package com.example.springpracticeproject;
+package com.example.springPracticeProject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
