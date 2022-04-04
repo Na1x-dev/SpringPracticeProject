@@ -1,20 +1,23 @@
 package com.example.springPracticeProject.controllers;
 
-import org.springframework.http.HttpStatus;
+import com.example.springPracticeProject.services.TestService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class TestController {
 
-    public TestController() {
+    private final TestService testService;
+
+    @Autowired
+    public TestController(TestService testService) {
+        this.testService = testService;
     }
 
     @GetMapping(value = "/{number}")
     public ResponseEntity<?> get(@PathVariable(name = "number") int number) {
-        return number % 2 == 0
-                        ? new ResponseEntity<>(HttpStatus.OK)
-                        : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return this.testService.get(number);
     }
 
 }
