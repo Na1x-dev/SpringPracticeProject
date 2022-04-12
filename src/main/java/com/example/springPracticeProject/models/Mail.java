@@ -2,24 +2,27 @@ package com.example.springPracticeProject.models;
 
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "mails")
 @Data
 public class Mail {
+    @NonNull
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NonNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @NonNull
     @Column(name = "mail_address")
     private String mailAddress;
 
@@ -30,4 +33,6 @@ public class Mail {
     private List<Message> sentMessages;
 
 
+    public Mail() {
+    }
 }
