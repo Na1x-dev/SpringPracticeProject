@@ -1,4 +1,4 @@
-package com.example.springPracticeProject.services;
+package com.example.springPracticeProject.servicies;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

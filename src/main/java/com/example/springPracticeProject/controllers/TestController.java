@@ -1,6 +1,6 @@
 package com.example.springPracticeProject.controllers;
 
-import com.example.springPracticeProject.services.TestService;
+import com.example.springPracticeProject.servicies.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
