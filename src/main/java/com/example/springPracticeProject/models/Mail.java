@@ -1,61 +1,33 @@
 package com.example.springPracticeProject.models;
 
 
+import lombok.Data;
 
-//@Entity
-//@Table(name = "mails")
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Table(name = "mails")
+@Data
 public class Mail {
-    //@Id
-    //@Column
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    //@Column(name = "user_id")
-    private Integer userId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
-    //@Column(name = "mail_address")
+    @Column(name = "mail_address")
     private String mailAddress;
 
+    @OneToMany(mappedBy = "recipientsMail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> receivedMessages;
 
-    public Mail(){
-    }
+    @OneToMany(mappedBy = "sendersMail", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> sentMessages;
 
-    public Mail(Integer id, Integer userId, String mailAddress){
-        this.id= id;
-        this.userId = userId;
-        this.mailAddress = mailAddress;
-    }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public String getMailAddress() {
-        return mailAddress;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public void setMailAddress(String mailAddress) {
-        this.mailAddress = mailAddress;
-    }
-
-    @Override
-    public String toString() {
-        return "Mail{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", mailAddress='" + mailAddress + '\'' +
-                '}';
-    }
 }
