@@ -1,7 +1,7 @@
 package com.example.springPracticeProject.servicies;
 
 import com.example.springPracticeProject.models.User;
-
+//
 import java.util.List;
 
 public interface UserService {

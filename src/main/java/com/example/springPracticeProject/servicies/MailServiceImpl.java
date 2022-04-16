@@ -4,7 +4,7 @@ import com.example.springPracticeProject.models.Mail;
 import com.example.springPracticeProject.repositories.MailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+//
 import java.util.List;
 
 @Service
