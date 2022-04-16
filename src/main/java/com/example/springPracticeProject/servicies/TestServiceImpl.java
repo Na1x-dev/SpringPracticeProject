@@ -3,7 +3,7 @@ package com.example.springPracticeProject.servicies;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-//
+
 @Service
 public class TestServiceImpl implements TestService{
 
