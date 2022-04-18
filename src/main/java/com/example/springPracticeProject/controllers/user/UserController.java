@@ -1,26 +1,22 @@
-package com.example.springPracticeProject.controllers;
-
+package com.example.springPracticeProject.controllers.user;
+//
 import com.example.springPracticeProject.models.User;
-import com.example.springPracticeProject.servicies.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springPracticeProject.servicies.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
+@RequiredArgsConstructor
 @RestController
 public class UserController {
 
     private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;}
-
     @PostMapping(value = "/users")
     public ResponseEntity<?> create(@RequestBody User user){
         userService.create(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/users")
@@ -43,7 +39,7 @@ public class UserController {
     public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody User user){
         final boolean updated = userService.update(user, id);
         return updated
-                ? new ResponseEntity<>(HttpStatus.OK)
+                ? new ResponseEntity<>(user, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
@@ -51,7 +47,7 @@ public class UserController {
     public ResponseEntity<?> delete(@PathVariable(name = "id") int id){
         final boolean deleted = userService.delete(id);
         return deleted
-                ? new ResponseEntity<>(HttpStatus.OK)
+                ? new ResponseEntity<>(id, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 }

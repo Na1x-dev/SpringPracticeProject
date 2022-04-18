@@ -1,5 +1,5 @@
-package com.example.springPracticeProject.servicies;
-
+package com.example.springPracticeProject.servicies.message;
+//
 import com.example.springPracticeProject.models.Message;
 
 import java.util.List;

@@ -1,17 +1,17 @@
-package com.example.springPracticeProject.servicies;
+package com.example.springPracticeProject.servicies.mail;
 
 import com.example.springPracticeProject.models.Mail;
-import com.example.springPracticeProject.repositories.MailRepository;
+import com.example.springPracticeProject.repositories.mail.MailJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+//
 import java.util.List;
 
 @Service
-public class MailServiceImpl implements MailService{
+public class MailServiceImpl implements MailService {
 
     @Autowired
-    private MailRepository mailRepository;
+    private MailJpaRepository mailRepository;
 
     @Override
     public void create(Mail mail) {

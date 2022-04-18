@@ -1,16 +1,16 @@
-package com.example.springPracticeProject.servicies;
+package com.example.springPracticeProject.servicies.message;
 
 import com.example.springPracticeProject.models.Message;
-import com.example.springPracticeProject.repositories.MessageRepository;
+import com.example.springPracticeProject.repositories.message.MessageJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
+//
 @Service
-public class MessageServiceImpl implements MessageService{
+public class MessageServiceImpl implements MessageService {
 
     @Autowired
-    private MessageRepository messageRepository;
+    private MessageJpaRepository messageRepository;
 
     @Override
     public void create(Message message) {

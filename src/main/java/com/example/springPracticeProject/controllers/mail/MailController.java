@@ -1,28 +1,23 @@
-package com.example.springPracticeProject.controllers;
+package com.example.springPracticeProject.controllers.mail;
 
 import com.example.springPracticeProject.models.Mail;
-import com.example.springPracticeProject.servicies.MailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springPracticeProject.servicies.mail.MailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-//
-import java.util.List;
 
+import java.util.List;
+@RequiredArgsConstructor
 @RestController
 public class MailController {
 
     private final MailService mailService;
 
-    @Autowired
-    public MailController(MailService mailService) {
-        this.mailService = mailService;
-    }
-
     @PostMapping(value = "/mails")
     public ResponseEntity<?> create(@RequestBody Mail mail){
         mailService.create(mail);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(mail, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/mails")
@@ -45,7 +40,7 @@ public class MailController {
     public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Mail mail){
         final boolean updated = mailService.update(mail, id);
         return updated
-                ? new ResponseEntity<>(HttpStatus.OK)
+                ? new ResponseEntity<>(mail, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
@@ -53,7 +48,7 @@ public class MailController {
     public ResponseEntity<?> delete(@PathVariable(name = "id") int id){
         final boolean deleted = mailService.delete(id);
         return deleted
-                ? new ResponseEntity<>(HttpStatus.OK)
+                ? new ResponseEntity<>(id, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 }

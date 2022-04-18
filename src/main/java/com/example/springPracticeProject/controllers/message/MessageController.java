@@ -1,28 +1,22 @@
-package com.example.springPracticeProject.controllers;
-
+package com.example.springPracticeProject.controllers.message;
+//
 import com.example.springPracticeProject.models.Message;
-import com.example.springPracticeProject.servicies.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.springPracticeProject.servicies.message.MessageService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RequiredArgsConstructor
 @RestController
 public class MessageController {
-
     private final MessageService messageService;
-
-    @Autowired
-    public MessageController(MessageService messageService) {
-        this.messageService = messageService;
-    }
 
     @PostMapping(value = "/messages")
     public ResponseEntity<?> create(@RequestBody Message message){
         messageService.create(message);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/messages")
@@ -45,7 +39,7 @@ public class MessageController {
     public ResponseEntity<?> update(@PathVariable(name = "id") int id, @RequestBody Message message){
         final boolean updated = messageService.update(message, id);
         return updated
-                ? new ResponseEntity<>(HttpStatus.OK)
+                ? new ResponseEntity<>(message, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
@@ -53,7 +47,7 @@ public class MessageController {
     public ResponseEntity<?> delete(@PathVariable(name = "id") int id){
         final boolean deleted = messageService.delete(id);
         return deleted
-                ? new ResponseEntity<>(HttpStatus.OK)
+                ? new ResponseEntity<>(id, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 }

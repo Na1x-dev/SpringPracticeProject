@@ -1,17 +1,17 @@
-package com.example.springPracticeProject.servicies;
+package com.example.springPracticeProject.servicies.user;
 
 import com.example.springPracticeProject.models.User;
-import com.example.springPracticeProject.repositories.UserRepository;
+import com.example.springPracticeProject.repositories.user.UserJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+//
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserJpaRepository userRepository;
 
     @Override
     public void create(User user) {
