@@ -1,17 +1,49 @@
 package com.example.springPracticeProject.services;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.example.springPracticeProject.models.User;
+import com.example.springPracticeProject.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class TestServiceImpl implements TestService{
+import java.util.List;
 
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
-    public ResponseEntity<?> get(int number) {
-        return number % 2 == 0
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    public void create(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public List<User> readAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User read(int id) {
+        return userRepository.getById(id);
+    }
+
+    @Override
+    public boolean update(User user, int id) {
+        if (userRepository.existsById(id)) {
+            user.setId(id);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

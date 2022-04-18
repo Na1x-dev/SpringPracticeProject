@@ -1,8 +1,17 @@
 package com.example.springPracticeProject.services;
 
-import org.springframework.http.ResponseEntity;
+import com.example.springPracticeProject.models.User;
 
-public interface TestService {
+import java.util.List;
 
-    ResponseEntity<?> get(int number);
+public interface UserService {
+
+    void create(User user);
+    List<User> readAll();
+
+    User read(int id);
+
+    boolean update(User user, int id);
+
+    boolean delete(int id);
 }
