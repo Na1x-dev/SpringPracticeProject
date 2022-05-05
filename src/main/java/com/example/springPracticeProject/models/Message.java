@@ -1,33 +1,33 @@
 package com.example.springPracticeProject.models;
 
-import lombok.Data;
-import lombok.NonNull;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "messages")
 @Data
+@NoArgsConstructor
+@JsonIgnoreProperties("hibernateLazyInitializer")
 public class Message {
-    @NonNull
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Mail sendersMail;
+    Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "senders_mail_id", nullable = false, referencedColumnName = "id")
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Mail recipientsMail;
+    Mail sendersMail;
 
+    @ManyToOne
+    @JoinColumn(name = "recipients_mail_id", nullable = false, referencedColumnName = "id")
     @NonNull
+    Mail recipientsMail;
+
     @Column(name = "message_content")
-    private String messageContent;
-
-
-    public Message() {
-    }
+    @NonNull
+    String messageContent;
 }

@@ -1,8 +1,8 @@
 package com.example.springPracticeProject.models;
 
-
-import lombok.Data;
-import lombok.NonNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,29 +10,30 @@ import java.util.List;
 @Entity
 @Table(name = "mails")
 @Data
+@NoArgsConstructor
+@JsonIgnoreProperties("hibernateLazyInitializer")
 public class Mail {
-    @NonNull
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     @NonNull
+    Long id;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
+    @JsonIgnore
     @NonNull
+    User user;
+
     @Column(name = "mail_address")
-    private String mailAddress;
+    @NonNull
+    String mailAddress;
 
     @OneToMany(mappedBy = "recipientsMail", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Message> receivedMessages;
+    @ToString.Exclude
+    List<Message> receivedMessages;
 
     @OneToMany(mappedBy = "sendersMail", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Message> sentMessages;
-
-
-    public Mail() {
-    }
+    @ToString.Exclude
+    List<Message> sentMessages;
 }
