@@ -3,6 +3,7 @@ package com.example.springPracticeProject.services.message;
 import com.example.springPracticeProject.models.Message;
 import com.example.springPracticeProject.repositories.message.MessageJpaRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -46,5 +47,11 @@ public class MessageServiceImpl implements MessageService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Message> readByMailId(Long mailId) {
+
+        return messageRepository.findByRecipientsMailId(mailId);
     }
 }

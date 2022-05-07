@@ -1,0 +1,89 @@
+#main {
+    display: flex;
+    flex-direction: row;
+    font-family: "Montserrat Light";
+
+}
+
+#received-messages-button{
+    background-color: #daf0f4;
+    /*//padding: 10px;*/
+    color: steelblue;
+    border-radius: 5px;
+}
+
+#messages {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    margin-left: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    padding: 20px;
+    flex-grow: 1;
+    margin-right: 20px;
+    position: relative;
+    align-self: start;
+}
+
+#menu-buttons-div {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-size: 150%;
+    margin-top: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    margin-left: 20px;
+    align-self: start;
+}
+
+.button {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+}
+
+.message-button {
+    text-decoration: none;
+    color: black;
+    font-size: 150%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-left: 10px;
+}
+
+.text-of-message {
+    margin-left: 50px;
+    margin-right: 50px;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
+    text-overflow: ellipsis; /* Добавляем многоточие */
+    flex-grow: 1;
+
+}
+
+.button-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button-text {
+    margin-right: 40px;
+}
+
+hr {
+    border: none; /* Убираем границу */
+    background-color: lightgrey; /* Цвет линии */
+    height: 1px;
+}
+
+.sender-name {
+    white-space: nowrap; /* Отменяем перенос текста */
+}
+
+

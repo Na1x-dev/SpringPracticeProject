@@ -29,10 +29,12 @@ public class Mail {
     @NonNull
     String mailAddress;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "recipientsMail", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     List<Message> receivedMessages;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sendersMail", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     List<Message> sentMessages;

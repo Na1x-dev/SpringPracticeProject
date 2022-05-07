@@ -14,4 +14,6 @@ public interface MessageService {
     boolean update(Message message, Long id);
 
     boolean delete(Long id);
+
+    List<Message> readByMailId(Long id);
 }

@@ -56,4 +56,12 @@ public class MessageController {
                 ? new ResponseEntity<>(id, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
+
+    @GetMapping(value = MessageEndpoints.messageMailIdEndpoint)
+    public ResponseEntity<List<Message>> readByMailId(@PathVariable(name = "id") Long id){
+        final List<Message> messages = messageService.readByMailId(id);
+        return messages != null && !messages.isEmpty()
+                ? new ResponseEntity<>(messages, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
