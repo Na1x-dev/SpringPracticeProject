@@ -12,6 +12,7 @@ public interface UserService {
     User read(Long id);
 
     boolean update(User user, Long id);
+    User findByUsername(String username);
 
     boolean delete(Long id);
 }

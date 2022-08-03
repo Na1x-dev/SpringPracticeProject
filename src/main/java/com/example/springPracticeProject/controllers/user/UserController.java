@@ -1,59 +1,72 @@
 package com.example.springPracticeProject.controllers.user;
 
 import com.example.springPracticeProject.models.User;
+import com.example.springPracticeProject.services.security.SecurityService;
 import com.example.springPracticeProject.services.user.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController
+@Controller
 public class UserController {
-
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
-    UserController(UserService userService){
-        this.userService = userService;
+    private SecurityService securityService;
+
+    @Autowired
+    private UserValidator userValidator;
+
+    @GetMapping("/signUpPage/index")
+    public String registration(Model model) {
+        if (securityService.isAuthenticated()) {
+            return "redirect:/receivedMessages/index";
+        }
+        User user = new User();
+        model.addAttribute("userForm", user);
+       // System.out.println(user.getUserName());
+        return "signUpPage/index";
     }
 
-    @PostMapping(value = UserEndpoints.userEndpoint)
-    public ResponseEntity<?> create(@RequestBody User user){
-        userService.create(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    @PostMapping("/signUpPage/index")
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+        System.out.println("gg");
+        userValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "signUpPage/index";
+        }
+
+        userService.create(userForm);
+
+        securityService.autoLogin(userForm.getUserName(), userForm.getPasswordConfirm());
+
+        return "redirect:/receivedMessages/index";
     }
 
-    @GetMapping(value = UserEndpoints.userEndpoint)
-    public ResponseEntity<List<User>> readAll(){
-        final List<User> users = userService.readAll();
-        return users != null && !users.isEmpty()
-                ? new ResponseEntity<>(users, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping("/login")
+    public String login(Model model, String error, String logout) {
+        if (securityService.isAuthenticated()) {
+            return "redirect:/receivedMessages/index";
+        }
+
+        if (error != null)
+            model.addAttribute("error", "Your username and password is invalid.");
+
+        if (logout != null)
+            model.addAttribute("message", "You have been logged out successfully.");
+
+        return "login";
     }
 
-    @GetMapping(value = UserEndpoints.userIdEndpoint)
-    public ResponseEntity<User> read(@PathVariable(name = "id") Long id){
-        final User user = userService.read(id);
-        return user != null
-                ? new ResponseEntity<>(user, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PutMapping(value = UserEndpoints.userIdEndpoint)
-    public ResponseEntity<?> update(@PathVariable(name = "id") Long id, @RequestBody User user){
-        final boolean updated = userService.update(user, id);
-        return updated
-                ? new ResponseEntity<>(user, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-    }
-
-    @DeleteMapping(value = UserEndpoints.userIdEndpoint)
-    public ResponseEntity<?> delete(@PathVariable(name = "id") Long id){
-        final boolean deleted = userService.delete(id);
-        return deleted
-                ? new ResponseEntity<>(id, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-    }
-}
+    @GetMapping({"/", "/receivedMessages/index"})
+    public String welcome(Model model) {
+        return "receivedMessages/index";
+    }}
